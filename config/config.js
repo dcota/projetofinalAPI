@@ -1,9 +1,19 @@
+/*
+MEIW - Programação Web Avançada - projeto final
+Auhtor: Duarte Cota
+Description: configurations of the API 
+*/
+
+require('dotenv').config({ path: '../private/.env'})
+const credentials = require('../private/credentials')
+
 module.exports = {
     mongodb: {
-        uri: process.env.MONGOURL,
+        uri: 'mongodb+srv://'+ credentials.auth.username + ':' + credentials.auth.password + '@cluster0.6qmly.mongodb.net/apds?retryWrites=true&w=majority',
         collections: {
-            students: 'students',
-            users: 'users'
+            users: 'users',
+            notifications: 'notifications',
+            students: 'students'
         }
     },
     auth: {
@@ -11,7 +21,14 @@ module.exports = {
         issuer: 'ENTA'
     },
     sanitize: {
-        alphabeth: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÁÉÍÓÚáéíóúÀÈÌÒÙàèìòãõâêô\\ ',
+        alphabeth: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzŠŒŽšœžŸ¥µÀÁÂÃÄÅÆÇÈÉÊËẼÌÍÎÏĨÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëẽìíîïĩðñòóôõöøùúûüýÿ\\ ',
         numerical: '0123456789'
+    },
+    email: {
+        service: "Gmail",
+        auth: {
+            user: "pwacota@gmail.com",
+            pass: "pwa12345"
+        }
     }
 }

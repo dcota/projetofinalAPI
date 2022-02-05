@@ -1,34 +1,34 @@
 /*
 MEIW - Programação Web Avançada - projeto final
 Auhtor: Duarte Cota
-Description: messages for response - users
+Description: messages for response - notifications
 */
 
 module.exports = {
   success: {
     s0: {
       http: 201,
-      code: 'User created',
+      code: 'Notification created',
       type: 'success'
     },
     s1: {
       http: 200,
-      code: 'Users found',
+      code: 'All notifications',
       type: 'success'
     },
     s3: {
       http: 200,
-      code: 'User already exists',
+      code: 'Notification already exists',
       type: 'success'
     },
     s4: {
       http: 200,
-      code: 'User deleted',
+      code: 'Notification deleted',
       type: 'success'
     },
     s5: {
       http: 200,
-      code: 'User data for _id',
+      code: 'Notification by _id',
       type: 'success'
     },
 
@@ -36,7 +36,7 @@ module.exports = {
   error: {
     e0: {
       http: 404,
-      code: 'User not found'
+      code: 'Notification not found'
     },
     e1: {
       http: 500,

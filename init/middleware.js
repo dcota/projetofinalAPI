@@ -1,23 +1,28 @@
-
-const express = require('express')
+/*
+MEIW - Programação Web Avançada - projeto final
+Auhtor: Duarte Cota
+Description: middleware - some rules to configure API
+*/
 
 module.exports = (app) => {
-    app.use(express.urlencoded({ extended: true }))
-    app.use(express.json({ extended: false }))
-
-    const cookieParser = require('cookie-parser')
-    const cors = require('cors')
-    app.use(cors({
-        exposedHeaders: ['Location']
-    }))
-
-    app.use(function(req, res, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-        res.header("Access-Control-Expose-Headers", "Authorization");
-        next();
-        });
-
-    app.use(cookieParser())
-    app.set('trust proxy', 1)
+    const cookieParser = require('cookie-parser');
+    const bodyParser = require('body-parser');
+    const cors = require('cors');
+    app.use(cors());
+    app.options('*', cors());
+    app.use((req, res, callback) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods',
+            'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        res.header('Access-Control-Allow-Headers',
+            'Origin, X-Requested-With, Content-Type, Accept, Authorization, Language, Location');
+        res.header('Access-Control-Expose-Headers', 'Authorization, Language, Location');
+        return callback();
+    })
+    app.use(bodyParser.urlencoded({
+        extended: true
+    }));
+    app.use(bodyParser.json());
+    app.use(cookieParser());
+    app.set('trust proxy', 1);
 }

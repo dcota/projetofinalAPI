@@ -1,32 +1,21 @@
-const mongoDB = require('mongoose')
-require('dotenv').config({ path: './private/.env' })
-const config = require('../config/config')
+/*
+MEIW - Programação Web Avançada - projeto final
+Auhtor: Duarte Cota
+Description: connection to MongoDB Atlas
+*/
+const CONFIG = require('../config/config');
+const credentials = require('../private/credentials')
 
-class MongoConnection {
-    constructor(){
-     if(! MongoConnection.mongoInstance){
-        const connection = mongoDB.connect(config.mongodb.uri, {
-            useNewUrlParser: true, 
-            useUnifiedTopology: true}, (err)=>{
-            if(err){
-                throw err;
-            }
-            else {
-                console.log('Connected to MongoDB')
-            }
-        })
-       this.conn=connection
-     }
-     return MongoConnection.mongoInstance
-    } 
+module.exports = (app, callback) => {
+    const mongoose = require('mongoose');
+    let settings = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    };
+    global.mongoConnection = mongoose.connect(CONFIG.mongodb.uri, settings, (error) => {
+        if (error) throw error;
+        console.log('---Connected to DB');
+        return callback();
+    })
 
-    getconn(){
-        return this.conn
-    } 
 }
-
-const mongoInstance = new MongoConnection();
-Object.freeze(mongoInstance)
-module.exports = ((mongoInstance) => {
-    mongoInstance
-})
